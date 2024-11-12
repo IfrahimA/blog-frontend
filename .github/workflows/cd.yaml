@@ -21,6 +21,7 @@ jobs:
       #AUTHENTICATE WITH GOOGLE CLOUD
       - uses: google-github-actions/auth@v1
         with:
+          service_account: ${{secrets.GOOGLECLOUD_SERVICE_ACCOUNT}}
           credentials_json: ${{ secrets.GOOGLECLOUD_CREDENTIALS }}
       #BUILD AND PUSH TO DOCKER REPOSITORY
       - name: Build and push frontend image

@@ -3,34 +3,38 @@ on:
   push:
     branches:
       - main
-
+#FRONTEND
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: ${{ steps.deploy-backend.outputs.url }}
+      url: ${{ steps.deploy-frontend.outputs.url }}
     steps:
       - uses: actions/checkout@v3
+      #AUTHENTICATE WITH DOCKER
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      #AUTHENTICATE WITH GOOGLE CLOUD
       - uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GOOGLECLOUD_CREDENTIALS }}
-      - name: Build and push backend image
+      #BUILD AND PUSH TO DOCKER REPOSITORY
+      - name: Build and push frontend image
         uses: docker/build-push-action@v4
         with:
-          context: ../../../backend
-          file: ../../../backend/Dockerfile
+          context: .
+          file: ./Dockefile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/blog-backend:latest
-      - id: deploy-backend
-        name: Deploy backend
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/blog-frontend:latest
+      #DEPLOY DOCKER FILE
+      - id: deploy-frontend
+        name: Deploy frontend
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service: blog-backend
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/blog-backend:latest
+          service: blog-frontend
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/blog-frontend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}

@@ -31,7 +31,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/blog-frontend:latest
-      #DEPLOY DOCKER FILE
+      #DEPLOY DOCKER FILE TO GOGGLE CLOUD
       - id: deploy-frontend
         name: Deploy frontend
         uses: google-github-actions/deploy-cloudrun@v1

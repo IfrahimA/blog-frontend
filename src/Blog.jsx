@@ -40,7 +40,7 @@ export function Blog() {
 				onOrderChange={(orderValue) => setSortOrder(orderValue)}
 			/>
 			<hr />
-			<PostList posts={posts} f/>
+			<PostList posts={posts} />
 		</div>
 	);
 }

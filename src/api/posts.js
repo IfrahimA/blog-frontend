@@ -1,9 +1,5 @@
 import axios from 'axios';
 
-setTimeout(() => {
-	console.log(import.meta.env.VITE_BACKEND_URL);
-}, 100); // 60000 ms = 1 minute
-
 export const getPosts = async (queryParams) => {
 	const URL =
 		`${import.meta.env.VITE_BACKEND_URL}/posts?` +

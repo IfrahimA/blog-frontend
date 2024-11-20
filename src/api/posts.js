@@ -8,8 +8,12 @@ export const getPosts = async (queryParams) => {
 	return res;
 };
 
-export const createPost = async (post) => {
+export const createPost = async (token, post) => {
 	const URL = `${import.meta.env.VITE_BACKEND_URL}/posts?`;
-	const res = await axios.post(URL, post);
+	const res = await axios.post(URL, post, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
 	return res;
 };

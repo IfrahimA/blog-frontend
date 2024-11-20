@@ -1,25 +1,31 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { signup } from '../api/users';
+import { login } from '../api/users';
+
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 import { Link } from 'react-router-dom';
 
-export function Signup() {
+export function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+    const [, setToken] = useAuth(); 
 
 	const navigate = useNavigate();
 
-	const signupMutation = useMutation({
-		mutationFn: () => signup({ username, password }),
-		onSuccess: () => navigate('/login'),
-		onError: () => alert('Failed to sing up!'),
+	const loginMutation = useMutation({
+		mutationFn: () =>  login({ username, password }),
+		onSuccess: (data) => {
+            setToken(data.token)
+            navigate('/')
+        },
+		onError: () => alert('Failed to Login'),
 	});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		signupMutation.mutate();
+		loginMutation.mutate();
 	};
 
 	return (
@@ -51,8 +57,8 @@ export function Signup() {
 			<br />
 			<input
 				type='submit'
-				value={signupMutation.isPending ? 'Signing up...' : 'Sign Up'}
-				disabled={!username || !password || signupMutation.isPending}
+				value={loginMutation.isPending ? 'Logging in...' : 'Log In'}
+				disabled={!username || !password || loginMutation.isPending}
 			/>
 		</form>
 	);

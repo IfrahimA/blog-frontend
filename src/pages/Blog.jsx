@@ -5,6 +5,8 @@ import { CreatePost } from '../components/CreatePost.jsx';
 import { PostFilter } from '../components/PostFilter.jsx';
 import { PostSorting } from '../components/PostSorting.jsx';
 
+import { Header } from '../components/Header.jsx';
+
 import { useQuery } from '@tanstack/react-query';
 import { getPosts } from '../api/posts.js';
 
@@ -22,6 +24,10 @@ export function Blog() {
 
 	return (
 		<div style={{ padding: 8 }}>
+			<Header />
+			<br />
+			<br />
+			<br />
 			<CreatePost />
 			<br />
 			<hr />

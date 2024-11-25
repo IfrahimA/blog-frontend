@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { PostList } from '../components/PostList.jsx';
 import { CreatePost } from '../components/CreatePost.jsx';
 import { PostFilter } from '../components/PostFilter.jsx';
@@ -20,7 +19,7 @@ export function Blog() {
 		queryFn: () => getPosts({ author, sortBy, sortOrder }),
 	});
 
-	const posts = postsQuery.data?.data ?? [];
+	const posts = postsQuery.data ?? [];
 
 	return (
 		<div style={{ padding: 8 }}>

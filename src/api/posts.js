@@ -5,7 +5,7 @@ export const getPosts = async (queryParams) => {
 		`${import.meta.env.VITE_BACKEND_URL}/posts?` +
 		new URLSearchParams(queryParams);
 	const res = await axios.get(URL);
-	return res;
+	return res.data;
 };
 
 export const createPost = async (token, post) => {
